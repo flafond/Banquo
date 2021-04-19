@@ -28,5 +28,14 @@ namespace Banquo.Extensions
             Thread.Sleep(ms);
             return this;
         }
+
+        public DOMElement GetElement(By by) => DOMElement.Make(FindElement(by));
+
+        public DOMElement GetElement(string selector) => GetElement(Banquo.ByRouter(selector));
+
+        public IReadOnlyList<DOMElement> GetElements(By by) => DOMElement.Make(FindElements(by));
+
+        public IReadOnlyList<DOMElement> GetElements(string selector) =>
+            GetElements(Banquo.ByRouter(selector));
     }
 }

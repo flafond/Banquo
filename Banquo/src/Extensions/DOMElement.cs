@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Internal;
 
 namespace Banquo.Extensions
 {
@@ -11,10 +12,11 @@ namespace Banquo.Extensions
     {
         private readonly IWebElement element;
 
-        public DOMElement(IWebElement element)
-        {
-            this.element = element;
-        }
+        public DOMElement(IWebElement element) => this.element = element;
+
+        public IWebElement WebElement => element;
+
+        public User AsUser => new(((IWrapsDriver)element).WrappedDriver);
 
         public static DOMElement Make(IWebElement element) => new(element);
 
