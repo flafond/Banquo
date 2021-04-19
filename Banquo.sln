@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banquo", "Banquo\Banquo.csproj", "{66303DA4-F146-472B-8DC9-6A4E21EE6D72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Banquo", "Banquo\Banquo.csproj", "{66303DA4-F146-472B-8DC9-6A4E21EE6D72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BanquoTest", "BanquoTest\BanquoTest.csproj", "{ACD92539-7907-43DF-ADDF-F1AC186C227E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{66303DA4-F146-472B-8DC9-6A4E21EE6D72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66303DA4-F146-472B-8DC9-6A4E21EE6D72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66303DA4-F146-472B-8DC9-6A4E21EE6D72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACD92539-7907-43DF-ADDF-F1AC186C227E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACD92539-7907-43DF-ADDF-F1AC186C227E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACD92539-7907-43DF-ADDF-F1AC186C227E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACD92539-7907-43DF-ADDF-F1AC186C227E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

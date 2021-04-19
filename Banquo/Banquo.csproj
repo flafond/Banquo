@@ -3,20 +3,16 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
 		<PackageId>Banquo</PackageId>
-		<Version>0.0.1</Version>
+		<Version>0.0.3</Version>
 		<Authors>Frank LaFond</Authors>
 		<PackageTags>Selenium;Automation;C#;Testing Framework</PackageTags>
 		<Description>
-			This is a C# library that provides "syntactic sugar" on top of
-			Selenium to make it similar to CodeceptJS. However I chose not
-			to call it CodeceptNET or similar as my goal is to make something
-			useful to me, not to make a faithful replica of CodeceptJS. It
-			also borrows ideas from Cypress, especially about making waiting
-			"invisible" to the developer in general.
+			Provides "syntactic sugar" on top of Selenium to make it similar to CodeceptJS and Cypress. 
 		</Description>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
   </ItemGroup>

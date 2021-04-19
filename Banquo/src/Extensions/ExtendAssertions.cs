@@ -4,42 +4,34 @@ using OpenQA.Selenium;
 
 namespace Banquo.Extensions
 {
-    public static class ExtendAssertions
+    public partial class User : IWebDriver
     {
-        public static IWebElement See(this IWebDriver driver, string expectedText, int msTimeout)
+        public User Sees(string expected, int msTimeout = Banquo.DefaultTimeout)
         {
-            By findBy = default;
             try
             {
                 // Used this as reference: https://stackoverflow.com/a/3655588
-                findBy = By.XPath($"//*[text()[contains(.,'{expectedText}')]]");
-                return driver.WaitForElement(findBy, msTimeout);
+                By findBy = By.XPath($"//*[text()[contains(.,'{expected}')]]");
+                return this;
             }
             catch (WebDriverTimeoutException e)
             {
-                throw new TimeoutException(
-                    $"text '{expectedText}', not found", msTimeout, e);
+                throw new TimeoutException($"text '{expected}'", msTimeout, e);
             }
         }
 
-        public static IWebElement See(this IWebDriver driver, string expectedText) =>
-            See(driver, expectedText, Banquo.defaultTimeout);
-
-        public static IWebDriver DontSee(this IWebDriver driver, string unexpectedText, int msTimeout)
+        public User DoesntSee(string notExpected, int msTimeout = Banquo.DefaultTimeout)
         {
             // Used this as reference: https://stackoverflow.com/a/3655588
-            var findBy = By.XPath($"//body//*[text()[contains(.,'{unexpectedText}')]]");
-            return driver.WaitForNoElement(findBy, msTimeout);
+            var findBy = By.XPath($"//body//*[text()[contains(.,'{notExpected}')]]");
+            return WaitForNoElement(findBy, msTimeout);
         }
 
-        public static IWebDriver DontSee(this IWebDriver driver, string unexpectedText) =>
-            DontSee(driver, unexpectedText, Banquo.defaultTimeout);
-
-        public static IWebElement SeeElement(this IWebDriver driver, By by, int msTimeout)
+        public DOMElement SeesElement(By by, int msTimeout = Banquo.DefaultTimeout)
         {
             try
             {
-                return driver.WaitForVisible(by, msTimeout);
+                return WaitForVisible(by, msTimeout);
             }
             catch (WebDriverTimeoutException e)
             {
@@ -47,20 +39,14 @@ namespace Banquo.Extensions
             }
         }
 
-        public static IWebElement SeeElement(this IWebDriver driver, string selector, int msTimeout) =>
-            driver.SeeElement(Banquo.ByRouter(selector), msTimeout);
+        public DOMElement SeesElement(string selector, int msTimeout = Banquo.DefaultTimeout) =>
+            SeesElement(Banquo.ByRouter(selector), msTimeout);
 
-        public static IWebElement SeeElement(this IWebDriver driver, By by) =>
-            driver.SeeElement(by, Banquo.defaultTimeout);
-
-        public static IWebElement SeeElement(this IWebDriver driver, string selector) =>
-            driver.SeeElement(Banquo.ByRouter(selector));
-
-        public static IWebElement SeeElementInDOM(this IWebDriver driver, By by, int msTimeout)
+        public DOMElement SeesElementInDOM(By by, int msTimeout = Banquo.DefaultTimeout)
         {
             try
             {
-                return driver.WaitForElement(by, msTimeout);
+                return WaitForElement(by, msTimeout);
             }
             catch (WebDriverTimeoutException e)
             {
@@ -68,20 +54,14 @@ namespace Banquo.Extensions
             }
         }
 
-        public static IWebElement SeeElementInDOM(this IWebDriver driver, string selector, int msTimeout) =>
-            driver.SeeElementInDOM(Banquo.ByRouter(selector), msTimeout);
+        public DOMElement SeesElementInDOM(string selector, int msTimeout = Banquo.DefaultTimeout) =>
+            SeesElementInDOM(Banquo.ByRouter(selector), msTimeout);
 
-        public static IWebElement SeeElementInDOM(this IWebDriver driver, By by) =>
-            driver.SeeElementInDOM(by, Banquo.defaultTimeout);
-
-        public static IWebElement SeeElementInDOM(this IWebDriver driver, string selector) =>
-            driver.SeeElementInDOM(Banquo.ByRouter(selector));
-
-        public static IWebDriver SeeInTitle(this IWebDriver driver, string expectedTitleContent, int msTimeout)
+        public User SeesInTitle(string expectedTitleContent, int msTimeout = Banquo.DefaultTimeout)
         {
             try
             {
-                return driver.WaitUntil((d, expected) => d.Title.Contains(expected), expectedTitleContent, msTimeout);
+                return WaitUntil((d, expected) => d.Title.Contains(expected), expectedTitleContent, msTimeout);
             }
             catch (WebDriverTimeoutException e)
             {
@@ -90,64 +70,61 @@ namespace Banquo.Extensions
             }
         }
 
-        public static IWebDriver SeeInTitle(this IWebDriver driver, string expectedTitleContent) =>
-            driver.SeeInTitle(expectedTitleContent, Banquo.defaultTimeout);
-
-        public static IWebDriver SeeTitleEquals(this IWebDriver driver, string expectedTitleContent, int msTimeout)
+        public User SeesTitleEquals(string expectedTitle, int msTimeout = Banquo.DefaultTimeout)
         {
             try
             {
-                return driver.WaitUntil((d, expected) => d.Title == expected, expectedTitleContent, msTimeout);
+                return WaitUntil((d, expected) => d.Title == expected, expectedTitle, msTimeout);
             }
             catch (WebDriverTimeoutException e)
             {
-                // This exception message is not necessarily accurate - the page title may have
-                // changed any number of times during the timeout process. But this is a decent
-                // message at least.
-                throw new TimeoutException(
-                    $"'{expectedTitleContent}' in title", msTimeout, e);
+                throw new TimeoutException($"Expected title to be '{expectedTitle}', but it isn't ({Title}) [timeout: {msTimeout} mS].\n", e);
             }
         }
 
-        public static IWebDriver SeeTitleEquals(this IWebDriver driver, string expectedTitleContent) =>
-            driver.SeeTitleEquals(expectedTitleContent, Banquo.defaultTimeout);
-
-        public static IWebDriver DontSeeInTitle(this IWebDriver driver, string expectedTitleContent, int msTimeout)
+        public User DoesntSeeInTitle(string dontExpectInTitle, int msTimeout = Banquo.DefaultTimeout)
         {
             try
             {
-                return driver.WaitUntil((d, expected) => !d.Title.Contains(expected), expectedTitleContent, msTimeout);
+                return WaitUntil((d, expected) => !d.Title.Contains(expected), dontExpectInTitle, msTimeout);
             }
             catch (WebDriverTimeoutException e)
             {
                 throw new TimeoutException(
-                    $"Expected '{expectedTitleContent}' to not be in title '{driver.Title}', it always was [timeout: {msTimeout} mS].\n", e);
+                    $"Unexpected string '{dontExpectInTitle}' in title ({Title}) [timeout: {msTimeout} mS].\n", e);
             }
         }
 
-        public static IWebDriver DontSeeInTitle(this IWebDriver driver, string expectedTitleContent) =>
-            driver.DontSeeInTitle(expectedTitleContent, Banquo.defaultTimeout);
-
-        public static IReadOnlyList<IWebElement> SeeNumberofElements(this IWebDriver driver, By by, int expectedCount, int msTimeout)
+        public IReadOnlyList<DOMElement> SeesNumberofElements(By by, int expectedCount, int msTimeout = Banquo.DefaultTimeout)
         {
             try
             {
-                return driver.WaitForElementCount(by, expectedCount);
+                return WaitForElementCount(by, expectedCount);
             }
             catch (WebDriverTimeoutException e)
             {
                 throw new TimeoutException(
-                    $"Expected'{by}' to be seen {expectedCount} times, was not [timeout: {msTimeout} mS].\n", e);
+                    $"Expected'{by}' to be seen {expectedCount} times, but it wasn't [timeout: {msTimeout} mS].\n", e);
             }
         }
 
-        public static IReadOnlyList<IWebElement> SeeNumberofElements(this IWebDriver driver, string selector, int expectedCount, int msTimeout) =>
-            driver.SeeNumberofElements(Banquo.ByRouter(selector), expectedCount, msTimeout);
+        public IReadOnlyList<DOMElement> SeesNumberofElements(string selector, int expectedCount, int msTimeout = Banquo.DefaultTimeout) =>
+            SeesNumberofElements(Banquo.ByRouter(selector), expectedCount, msTimeout);
 
-        public static IReadOnlyList<IWebElement> SeeNumberofElements(this IWebDriver driver, By by, int expectedCount) =>
-            driver.SeeNumberofElements(by, expectedCount, Banquo.defaultTimeout);
+        public DOMElement SeesInFields(By by, string fieldValue, int msTimeout = Banquo.DefaultTimeout)
+        {
+            try
+            {
+                var element = WaitForElement(by, msTimeout);
+                return element.SeesInField(fieldValue);
+            }
+            catch (WebDriverTimeoutException e)
+            {
+                throw new TimeoutException($"'{by}' in DOM", msTimeout, e);
+            }
+        }
 
-        public static IReadOnlyList<IWebElement> SeeNumberofElements(this IWebDriver driver, string selector, int expectedCount) =>
-            driver.SeeNumberofElements(Banquo.ByRouter(selector), expectedCount);
+        public DOMElement SeesInFields(string selector, string fieldValue, int msTimeout = Banquo.DefaultTimeout) =>
+            SeesInFields(ByRouter(selector), fieldValue, msTimeout);
     }
 }

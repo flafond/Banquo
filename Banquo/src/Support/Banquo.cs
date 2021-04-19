@@ -3,12 +3,11 @@ using OpenQA.Selenium;
 using System.Threading;
 using OpenQA.Selenium.Internal;
 
-
 namespace Banquo
 {
     public static class Banquo
     {
-        public static readonly int defaultTimeout = 5000;
+        public const int DefaultTimeout = 5000;
 
         public static IWebDriver Element2Driver(IWebElement element) => ((IWrapsDriver)element).WrappedDriver;
 
@@ -51,10 +50,10 @@ namespace Banquo
         public static By ByRouter(string selector)
         {
             if (selector.StartsWith("//")) return By.XPath(selector);
-            if (selector.StartsWith(".")) return By.ClassName(selector.Substring(1));
-            if (selector.StartsWith("#")) return By.Id(selector.Substring(1));
+            if (selector.StartsWith(".")) return By.ClassName(selector[1..]);
+            if (selector.StartsWith("#")) return By.Id(selector[1..]);
             if (selector.StartsWith("<") && selector.EndsWith(">"))
-                return By.TagName(selector.Substring(1, selector.Length - 2));
+                return By.TagName(selector[1..^1]);
             return By.CssSelector(selector);
         }
     }

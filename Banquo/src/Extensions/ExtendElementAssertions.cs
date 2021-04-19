@@ -3,22 +3,23 @@ using OpenQA.Selenium;
 
 namespace Banquo.Extensions
 {
-    public static class ExtendElementAssertions
+    public partial class DOMElement : IWebElement
+
     {
-        public static IWebElement See(this IWebElement element, int msTimeout)
+        public  DOMElement Sees(int msTimeout = Banquo.DefaultTimeout)
         {
-            var driver = Banquo.Element2Driver(element);
-            if (Banquo.WaitFor(element, e => e.Displayed, msTimeout))
+            var driver = Banquo.Element2Driver(this);
+            if (Banquo.WaitFor(this, e => e.Displayed, msTimeout))
             {
-                return element;
+                return this;
             }
             else
             {
-                throw new TimeoutException($"{element} to be visible", msTimeout);
+                throw new TimeoutException($"{this} to be visible", msTimeout);
             }
         }
 
-        public static IWebElement See(this IWebElement element) =>
-            element.See(Banquo.defaultTimeout);
+        public DOMElement SeesInField(string fieldValue, int msTimeout = Banquo.DefaultTimeout) =>
+            WaitForField(fieldValue, msTimeout);
     }
 }
