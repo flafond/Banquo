@@ -16,9 +16,9 @@ namespace Banquo.Extensions
 
         public IWebElement WebElement => element;
 
-        public User AsUser => new(((IWrapsDriver)element).WrappedDriver);
+        public User AsUser => new User(((IWrapsDriver)element).WrappedDriver);
 
-        public static DOMElement Make(IWebElement element) => new(element);
+        public static DOMElement Make(IWebElement element) => new DOMElement(element);
 
         public static IReadOnlyList<DOMElement> Make(IReadOnlyList<IWebElement> elements) =>
             elements.Select(e => Make(e)).ToList();

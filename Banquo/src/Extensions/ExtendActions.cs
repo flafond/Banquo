@@ -1,6 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Internal;
 
 namespace Banquo.Extensions
 {
@@ -103,5 +105,10 @@ namespace Banquo.Extensions
 
         public DOMElement Type(string selector, string toType, int msTimeout = Banquo.DefaultTimeout) =>
             Type(ByRouter(selector), toType, msTimeout);
+
+        public Object ExecuteScript(string script, Object[] args)
+        {
+            return ((IJavaScriptExecutor)Driver).ExecuteScript(script, args);
+        }
     }
 }

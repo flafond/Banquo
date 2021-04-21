@@ -89,7 +89,7 @@ namespace Banquo.Extensions
             foreach (char c in toType)
             {
                 SendKeys(c.ToString());
-                Thread.Sleep(50);
+                Thread.Sleep(10);
             }
             return this;
         }

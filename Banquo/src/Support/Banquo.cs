@@ -7,7 +7,7 @@ namespace Banquo
 {
     public static class Banquo
     {
-        public const int DefaultTimeout = 5000;
+        public const int DefaultTimeout = 15000;
 
         public static IWebDriver Element2Driver(IWebElement element) => ((IWrapsDriver)element).WrappedDriver;
 
