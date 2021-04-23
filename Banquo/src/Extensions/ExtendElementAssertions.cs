@@ -8,7 +8,7 @@ namespace Banquo.Extensions
     {
         public  DOMElement Sees(int msTimeout = Banquo.DefaultTimeout)
         {
-            var driver = Banquo.Element2Driver(this);
+            var driver = this.AsUser;
             if (Banquo.WaitFor(this, e => e.Displayed, msTimeout))
             {
                 return this;

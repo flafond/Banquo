@@ -9,8 +9,6 @@ namespace Banquo
     {
         public const int DefaultTimeout = 15000;
 
-        public static IWebDriver Element2Driver(IWebElement element) => ((IWrapsDriver)element).WrappedDriver;
-
         public static bool WaitFor(IWebElement element, Func<IWebElement, bool> cond, int msTimeout)
         {
             int cycles = 10;
