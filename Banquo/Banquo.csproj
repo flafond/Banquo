@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
 		<PackageId>Banquo</PackageId>
-		<Version>0.0.6</Version>
+		<Version>0.0.7</Version>
 		<Authors>Frank LaFond</Authors>
 		<PackageTags>Selenium;Automation;C#;Testing Framework</PackageTags>
 		<Description>Provides "syntactic sugar" on top of Selenium to make it similar to CodeceptJS and Cypress. 
