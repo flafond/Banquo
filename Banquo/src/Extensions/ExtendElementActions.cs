@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Internal;
+using OpenQA.Selenium.Support.UI;
 
 namespace Banquo.Extensions
 {
@@ -84,12 +85,52 @@ namespace Banquo.Extensions
             return this;
         }
 
-        public DOMElement Type(string toType)
+        // Next 4 apply to drop-down selectors only
+        public User SelectOptionByText(string text)
         {
-            foreach (char c in toType)
+            var selector = new SelectElement(this);
+            selector.SelectByText(text);
+            return AsUser;
+        }
+
+        public User SelectOptionByValue(string text)
+        {
+            var selector = new SelectElement(this);
+            selector.SelectByValue(text);
+            return AsUser;
+        }
+
+        public User SelectOptionsByText(string[] texts)
+        {
+            foreach (string text in texts)
             {
-                SendKeys(c.ToString());
-                Thread.Sleep(10);
+                SelectOptionByText(text);
+            }
+            return AsUser;
+        }
+
+        public User SelectOptionsByValue(string[] texts)
+        {
+            foreach (string text in texts)
+            {
+                SelectOptionByText(text);
+            }
+            return AsUser;
+        }
+
+        public DOMElement Type(string toType, int msDelay = 0)
+        {
+            if (msDelay <= 0)
+            {
+                SendKeys(toType);
+            }
+            else
+            {
+                foreach (char c in toType)
+                {
+                    SendKeys(c.ToString());
+                    Thread.Sleep(10);
+                }
             }
             return this;
         }

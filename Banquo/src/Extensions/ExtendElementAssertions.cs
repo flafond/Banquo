@@ -19,7 +19,10 @@ namespace Banquo.Extensions
             }
         }
 
-        public DOMElement SeesInField(string fieldValue, int msTimeout = Banquo.DefaultTimeout) =>
+        public DOMElement SeesInField(string fieldValue, int msTimeout = Banquo.DefaultTimeout)
+        {
             WaitForField(fieldValue, msTimeout);
+            return this;
+        }
     }
 }

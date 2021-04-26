@@ -11,15 +11,25 @@ I thought it would be interesting to keep track of how far along the path I am.
 |---|---|---|---|
 | **AmOnPage** | AppendField | AttachFile | ~~CancelPopup~~ |
 | **CheckOption** | ClearCookie | **ClearField** | **Click** |
-| ~~CloseCurrentTab~~ | ~~DoubleClick~~ | *DragAndDrop* | ~~DragSlider~~ |
+| ~~CloseCurrentTab~~ | ~~DoubleClick~~ | ~~DragAndDrop~~ | ~~DragSlider~~ |
 | ExecuteAsyncScript | ExecuteSript | **FillField** | **ForceClick** |
-| ~~ForceRightClick~~ | MoveCursorTo | ~~OpenNewTab~~ | PressKey |
+| ~~ForceRightClick~~ | MoveCursorTo | ~~OpenNewTab~~ | ~~PressKey~~ |
 | ~~PressKeyDown~~ | ~~PressKeyUp~~ | **RefreshPage** | ResizeWindow |
 | ~~RightClick~~ | RunInWeb | ~~RunOnAndroid~~ | ~~runOnIOS~~ |
 | SaveElementScreenshot | SaveScreenshot | ScrollIntoView | ScrollPageBottom |
-| ScrollPageTop | ScrollTo | SetCookie | ~~SetGeoLocation~~ |
-| ~~SwitchTo~~ | ~~SwitchToNextTab~~ | ~~SwitchToPreviousTab~~ | ~~SwitchToWindow~~ |
-| Type | **UncheckOption** | UseWebDriverTo | |
+| ScrollPageTop | ScrollTo | **SelectOption(s)**<br />[ByText,ByValue] |SetCookie |
+| ~~SetGeoLocation~~ | ~~SwitchTo~~ | ~~SwitchToNextTab~~ | ~~SwitchToPreviousTab~~ |
+| ~~SwitchToWindow~~ | **Type** | **UncheckOption** | UseWebDriverTo |
+
+#### Element Actions
+
+|   |   |   |   |
+|---|---|---|---|
+| AppendField | **Check(s)Option** | **Clear(s)Field** | **Click** |
+| ~~DoubleClick~~ | ~~DragAndDrop~~ | ~~DragSlider~~ | **Fill(s)Field** |
+| **ForceClick** | ~~ForceRightClick~~ | ~~RightClick~~ | SaveElementScreenshot |
+| ScrollIntoView | ScrollTo | **SelectOption(s)**<br />[ByText,ByValue] | ~~SwitchTo~~ |
+| **Type** | **UncheckOption** |  |  |
 
 ## Asserts
 
@@ -41,16 +51,28 @@ These will be useful for keeping tests fluent (not part of CodeceptJS; taken fro
 |   |   |   |   |
 |---|---|---|---|
 | DontSee | DontSeeCheckboxIsChecked | DontSeeInField |  **See** (== Driver <ins>SeeElement</ins>) |
- | SeeCheckboxIsChecked | SeeInDOM | SeeInField | SeeTextEquals | 
+| SeeCheckboxIsChecked | SeeInDOM | SeeInField | SeeTextEquals |
+| **SelectOption(s)**<br />[ByText,ByValue] |
 
 ## Grabs
 
+*These currently need testing*
+
 |   |   |   |   |
 |---|---|---|---|
-| **GrabAttributeFrom** | **GrabAttributeFromAll** | ~~GrabBrowserLogs~~ | GrabCookie |
-| GrabCssPropertyFrom | GrabCssPropertyFromAll | GrabCurrentUrl | ~~GrabDataFromPerformanceTiming~~ |
-| GrabElementBoundingRect | GrabHTMLFrom | GrabHTMLFromAll|  |
+| ~~GrabAllWindowHandles~~ | **GrabAttributeFrom** | **GrabAttributeFromAll** | ~~GrabBrowserLogs~~ |
+| **GrabCookie** | **GrabCssPropertyFrom** | **GrabCssPropertyFromAll** | **GrabCurrentUrl** |
+| ~~GrabCurrentWindowHandle~~ | **GrabElementBoundingRect** | ~~GrabGeoLocation~~ | **GrabHTMLFrom** |
+| GrabHTMLFromAll| ~~grabNumberOfOpenTabs~~ | grabNumberOfVisibleElements | GrabPageScrollPosition |
+| ~~GrabPopupText~~ | GrabSource | **GrabTextFrom** | **GrabTextFromAll** |
+| **GrabTitle** | **GrabValueFrom** | **GrabValueFromAll** |  |
 
+#### Element Grabs
+
+|   |   |   |   |
+|---|---|---|---|
+| **GrabAttribute** | **GrabCssProperty** | **GrabBoundingRect** | **GrabHTML** |
+| **GrabText** | **GrabValue** |  |  |
 
 ## Waits
 

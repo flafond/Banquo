@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.Threading;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Internal;
 
 namespace Banquo.Extensions
 {
@@ -83,14 +80,14 @@ namespace Banquo.Extensions
         public User SubmitForm(int index = 0)
         {
             IJavaScriptExecutor submitExecutor = (IJavaScriptExecutor)Driver;
-            submitExecutor.ExecuteScript($"document.forms[{index}].submit();");
+            submitExecutor.ExecuteScript($"document.forms[{index}].submit;");
             return this;
         }
 
         public User SubmitForm(string id)
         {
             IJavaScriptExecutor submitExecutor = (IJavaScriptExecutor)Driver;
-            submitExecutor.ExecuteScript($"document.forms['{id}'].submit();");
+            submitExecutor.ExecuteScript($"document.forms['{id}'].submit;");
             return this;
         }
 
@@ -99,6 +96,31 @@ namespace Banquo.Extensions
             Navigate().Refresh();
             return this;
         }
+
+        // Applies to Drop-downs only
+        public User SelectOptionByText(By by, string text, int msTimeout = Banquo.DefaultTimeout) =>
+            WaitForEnabled(by, msTimeout).SelectOptionByText(text);
+
+        public User SelectOptionByText(string selector, string text, int msTimeout = Banquo.DefaultTimeout) =>
+            SelectOptionByText(ByRouter(selector), text, msTimeout);
+
+        public User SelectOptionByValue(By by, string text, int msTimeout = Banquo.DefaultTimeout) =>
+            WaitForEnabled(by, msTimeout).SelectOptionByValue(text);
+
+        public User SelectOptionByValue(string selector, string text, int msTimeout = Banquo.DefaultTimeout) =>
+            SelectOptionByValue(ByRouter(selector), text, msTimeout);
+
+        public User SelectOptionsByText(By by, string[] texts, int msTimeout = Banquo.DefaultTimeout) =>
+            WaitForEnabled(by, msTimeout).SelectOptionsByText(texts);
+
+        public User SelectOptionsByText(string selector, string[] texts, int msTimeout = Banquo.DefaultTimeout) =>
+            SelectOptionsByText(ByRouter(selector), texts, msTimeout);
+
+        public User SelectOptionsByValue(By by, string[] texts, int msTimeout = Banquo.DefaultTimeout) =>
+            WaitForEnabled(by, msTimeout).SelectOptionsByValue(texts);
+
+        public User SelectOptionsByValue(string selector, string[] texts, int msTimeout = Banquo.DefaultTimeout) =>
+            SelectOptionsByValue(ByRouter(selector), texts, msTimeout);
 
         public DOMElement Type(By by, string toType, int msTimeout = Banquo.DefaultTimeout) =>
             WaitForEnabled(by, msTimeout).Type(toType);

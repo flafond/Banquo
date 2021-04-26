@@ -98,6 +98,23 @@ namespace Banquo.Extensions
             }));
         }
 
+        public bool WaitForNotVisible(By by, int msTimeout = Banquo.DefaultTimeout)
+        {
+            try
+            {
+                var wait = new WebDriverWait(this, TimeSpan.FromMilliseconds(msTimeout));
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                return wait.Until(d => !d.FindElement(by).Displayed);
+            }
+            catch (WebDriverTimeoutException)
+            {
+                return true;
+            }
+        }
+
+        public bool WaitForNotVisible(string selector, int msTimeout = Banquo.DefaultTimeout) =>
+            WaitForNotVisible(ByRouter(selector), msTimeout);
+
         public DOMElement WaitForVisible(string selector, int msTimeout = Banquo.DefaultTimeout) =>
             WaitForVisible(ByRouter(selector), msTimeout);
 
@@ -145,5 +162,14 @@ namespace Banquo.Extensions
 
         public IReadOnlyList<DOMElement> WaitForElementCount(string selector, int targetCount, int msTimeout = Banquo.DefaultTimeout) =>
             WaitForElementCount(ByRouter(selector), targetCount, msTimeout);
+
+        // See https://stackoverflow.com/questions/36590274/selenium-how-to-wait-until-page-is-completely-loaded
+        public User WaitPageReady(int msTimeout = Banquo.DefaultTimeout)
+        {
+            new WebDriverWait(this, TimeSpan.FromMilliseconds(msTimeout)).Until(
+               d => ((IJavaScriptExecutor)d).ExecuteScript("return document.readyState").Equals("complete")
+            );
+            return this;
+        }
     }
 }

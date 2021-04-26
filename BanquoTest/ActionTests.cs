@@ -100,30 +100,28 @@ namespace BanquoTest
         }
 
         [Test]
-        [Ignore("Submit not working yet")]
+        //[Ignore("Submit not working yet")]
         public void TestFormSubmit()
         {
-            User joe = user.IsOnPage(Url("automation-practice-form"));
-            joe.FillsField("#firstName", "Joe");
-            joe.FillsField("#lastName", "Black");
-            joe.FillsField("#firstName", "Joe");
-            joe.FillsField("#userEmail", "joe.black@example.com");
-            joe.FillsField("#userNumber", "5055551212");
-            joe.FillsField("//*[@id='dateOfBirth']//input", "12/13/1970" + Keys.Enter);
-            joe.FillsField("#subjectsInput", "Math");
-            joe.ChecksOption("#hobbies-checkbox-1");
-            joe.FillsField("#subjectsInput", "Math");
-            joe.FillsField("#currentAddress", "1 Main St.");
-            //joe.Click("//input[@id='react-select-3-input']").WaitMSec(100)
-            //    .Type("NCR" + Keys.Tab);
-            //joe.Click("//input[@id='react-select-4-input']").WaitMSec(100)
-            //    .Type("Delhi" + Keys.Tab);
-            joe.Type("//input[@id='react-select-3-input']", "NCR" + Keys.Tab);
-            joe.Type("//input[@id='react-select-4-input']", "Delhi" + Keys.Tab);
-
-            joe.SubmitForm("userForm");
-
-            joe.SeesInTitle("ToolsQA");
+            user.IsOnPage(Url("automation-practice-form"))
+                .FillsField("#firstName", "Joe")
+                .AsUser.FillsField("#lastName", "Black")
+                .AsUser.FillsField("#firstName", "Joe")
+                .AsUser.FillsField("#userEmail", "joe.black@example.com")
+                .AsUser.FillsField("#userNumber", "5055551212")
+                .AsUser.FillsField("//*[@id='dateOfBirth']//input", "12/13/1970" + Keys.Enter)
+                .AsUser.FillsField("//input[@id='subjectsInput']", "Maths" + Keys.Tab)
+                .AsUser.ChecksOption("#hobbies-checkbox-1")
+                .AsUser.FillsField("#subjectsInput", "Math")
+                .AsUser.FillsField("#currentAddress", "1 Main St.")
+                //joe.Click("//input[@id='react-select-3-input']").WaitMSec(100)
+                //    .Type("NCR" + Keys.Tab);
+                //joe.Click("//input[@id='react-select-4-input']").WaitMSec(100)
+                //    .Type("Delhi" + Keys.Tab);
+                .AsUser.Type("//input[@id='react-select-3-input']", "NCR" + Keys.Tab)
+                .AsUser.Type("//input[@id='react-select-4-input']", "Delhi" + Keys.Tab);
+             user.SubmitForm("userForm")
+                .SeesInTitle("ToolsQA");
         }
     }
 }

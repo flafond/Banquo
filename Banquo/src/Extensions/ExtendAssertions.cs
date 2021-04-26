@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Banquo.Exceptions;
+using FluentAssertions;
 using OpenQA.Selenium;
 
 namespace Banquo.Extensions
@@ -11,7 +12,7 @@ namespace Banquo.Extensions
             try
             {
                 // Used this as reference: https://stackoverflow.com/a/3655588
-                By findBy = By.XPath($"//*[text()[contains(.,'{expected}')]]");
+                WaitForVisible($"//*[text()[contains(.,'{expected}')]]");
                 return this;
             }
             catch (WebDriverTimeoutException e)
@@ -20,11 +21,12 @@ namespace Banquo.Extensions
             }
         }
 
+        // Used this as reference: https://stackoverflow.com/a/3655588
         public User DoesntSee(string notExpected, int msTimeout = Banquo.DefaultTimeout)
         {
-            // Used this as reference: https://stackoverflow.com/a/3655588
-            var findBy = By.XPath($"//body//*[text()[contains(.,'{notExpected}')]]");
-            return WaitForNoElement(findBy, msTimeout);
+            WaitForNotVisible($"//body//*[text()[contains(.,'{notExpected}')]]", msTimeout)
+               .Should().BeTrue();
+            return this;
         }
 
         public DOMElement SeesElement(By by, int msTimeout = Banquo.DefaultTimeout)
@@ -111,7 +113,7 @@ namespace Banquo.Extensions
         public IReadOnlyList<DOMElement> SeesNumberofElements(string selector, int expectedCount, int msTimeout = Banquo.DefaultTimeout) =>
             SeesNumberofElements(Banquo.ByRouter(selector), expectedCount, msTimeout);
 
-        public DOMElement SeesInFields(By by, string fieldValue, int msTimeout = Banquo.DefaultTimeout)
+        public DOMElement SeesInField(By by, string fieldValue, int msTimeout = Banquo.DefaultTimeout)
         {
             try
             {
@@ -124,7 +126,7 @@ namespace Banquo.Extensions
             }
         }
 
-        public DOMElement SeesInFields(string selector, string fieldValue, int msTimeout = Banquo.DefaultTimeout) =>
-            SeesInFields(ByRouter(selector), fieldValue, msTimeout);
+        public DOMElement SeesInField(string selector, string fieldValue, int msTimeout = Banquo.DefaultTimeout) =>
+            SeesInField(ByRouter(selector), fieldValue, msTimeout);
     }
 }
