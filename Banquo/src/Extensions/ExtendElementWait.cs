@@ -1,14 +1,11 @@
-﻿using System;
+﻿using OpenQA.Selenium;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 
 namespace Banquo.Extensions
 {
-    public partial class DOMElement : IWebElement
+   public partial class DOMElement : IWebElement
     {
         private DOMElement DOMElementWait(Func<DOMElement, string, bool> waitFn, string expect, int msTimeout = Banquo.DefaultTimeout)
         {

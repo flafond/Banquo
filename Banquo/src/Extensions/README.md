@@ -9,7 +9,7 @@ I thought it would be interesting to keep track of how far along the path I am.
 
 |   |   |   |   |
 |---|---|---|---|
-| **AmOnPage** | AppendField | AttachFile | ~~CancelPopup~~ |
+| **AmOnPage** | **AppendField** | AttachFile | ~~CancelPopup~~ |
 | **CheckOption** | ClearCookie | **ClearField** | **Click** |
 | ~~CloseCurrentTab~~ | ~~DoubleClick~~ | ~~DragAndDrop~~ | ~~DragSlider~~ |
 | ExecuteAsyncScript | ExecuteSript | **FillField** | **ForceClick** |
@@ -25,7 +25,7 @@ I thought it would be interesting to keep track of how far along the path I am.
 
 |   |   |   |   |
 |---|---|---|---|
-| AppendField | **Check(s)Option** | **Clear(s)Field** | **Click** |
+| **AppendField** | **Check(s)Option** | **Clear(s)Field** | **Click** |
 | ~~DoubleClick~~ | ~~DragAndDrop~~ | ~~DragSlider~~ | **Fill(s)Field** |
 | **ForceClick** | ~~ForceRightClick~~ | ~~RightClick~~ | SaveElementScreenshot |
 | ScrollIntoView | ScrollTo | **SelectOption(s)**<br />[ByText,ByValue] | ~~SwitchTo~~ |

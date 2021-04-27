@@ -27,14 +27,21 @@ namespace Banquo.Extensions
         }
 
         // Generic method
-        public User WaitUntil(Func<IWebDriver, string, bool> WaitFn, string expected, int msTimeout = Banquo.DefaultTimeout)
+        public User WaitFor(Func<IWebDriver, string, bool> WaitFn, string expected, int msTimeout = Banquo.DefaultTimeout)
         {
-            var wait = new WebDriverWait(this, TimeSpan.FromMilliseconds(msTimeout));
-            wait.Until<bool>((d) => WaitFn(d, expected));
+            var wait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(msTimeout));
+            wait.Until(d => WaitFn(d, expected));
             return this;
         }
 
-        public User Wait(int msWait = Banquo.DefaultTimeout)
+      public User WaitFor(Func<IWebDriver, bool> WaitFn, int msTimeout = Banquo.DefaultTimeout)
+      {
+         var wait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(msTimeout));
+         wait.Until(d => WaitFn(d));
+         return this;
+      }
+
+      public User WaitMSec(int msWait = Banquo.DefaultTimeout)
         {
             Thread.Sleep(TimeSpan.FromMilliseconds(msWait));
             return this;
@@ -42,7 +49,7 @@ namespace Banquo.Extensions
 
         public DOMElement WaitForElement(By by, int msTimeout = Banquo.DefaultTimeout)
         {
-            var wait = new WebDriverWait(this, TimeSpan.FromMilliseconds(msTimeout));
+            var wait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(msTimeout));
             return DOMElement.Make(wait.Until(d => d.FindElement(by)));
         }
 
@@ -51,7 +58,7 @@ namespace Banquo.Extensions
 
         public User WaitForNoElement(By by, int msTimeout = Banquo.DefaultTimeout)
         {
-            var wait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(msTimeout));
+            var wait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(msTimeout));
             try
             {
                 wait.Until(d => d.FindElements(by).Count == 0);
@@ -68,7 +75,7 @@ namespace Banquo.Extensions
 
         public DOMElement WaitForClickable(By by, int msTimeout = Banquo.DefaultTimeout)
         {
-            var wait = new WebDriverWait(this, TimeSpan.FromMilliseconds(msTimeout));
+            var wait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(msTimeout));
             return DOMElement.Make(wait.Until(d =>
             {
                 var element = d.FindElement(by);
@@ -81,7 +88,7 @@ namespace Banquo.Extensions
 
         public IReadOnlyList<DOMElement> GetElements(By by, int msTimeout = Banquo.DefaultTimeout)
         {
-            var wait = new WebDriverWait(this, TimeSpan.FromMilliseconds(msTimeout));
+            var wait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(msTimeout));
             return DOMElement.Make((wait.Until(d => d.FindElements(by))));
         }
 
@@ -90,7 +97,7 @@ namespace Banquo.Extensions
 
         public DOMElement WaitForVisible(By by, int msTimeout = Banquo.DefaultTimeout)
         {
-            var wait = new WebDriverWait(this, TimeSpan.FromMilliseconds(msTimeout));
+            var wait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(msTimeout));
             return DOMElement.Make(wait.Until(d =>
             {
                 var element = d.FindElement(by);
@@ -102,7 +109,7 @@ namespace Banquo.Extensions
         {
             try
             {
-                var wait = new WebDriverWait(this, TimeSpan.FromMilliseconds(msTimeout));
+                var wait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(msTimeout));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 return wait.Until(d => !d.FindElement(by).Displayed);
             }
@@ -120,7 +127,7 @@ namespace Banquo.Extensions
 
         public IReadOnlyList<DOMElement> GetVisibleElements(By by, int msTimeout = Banquo.DefaultTimeout)
         {
-            var wait = new WebDriverWait(this, TimeSpan.FromMilliseconds(msTimeout));
+            var wait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(msTimeout));
             return wait.Until(d =>
             {
                 var elements = d.FindElements(by).Where(i => i.Displayed).ToList();
@@ -134,7 +141,7 @@ namespace Banquo.Extensions
         // An enabled element is one that is ready to be interacted with
         public DOMElement WaitForEnabled(By by, int msTimeout = Banquo.DefaultTimeout)
         {
-            var wait = new WebDriverWait(this, TimeSpan.FromMilliseconds(msTimeout));
+            var wait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(msTimeout));
             return DOMElement.Make(wait.Until(d =>
             {
                 var element = d.FindElement(by);
@@ -166,7 +173,7 @@ namespace Banquo.Extensions
         // See https://stackoverflow.com/questions/36590274/selenium-how-to-wait-until-page-is-completely-loaded
         public User WaitPageReady(int msTimeout = Banquo.DefaultTimeout)
         {
-            new WebDriverWait(this, TimeSpan.FromMilliseconds(msTimeout)).Until(
+            new WebDriverWait(Driver, TimeSpan.FromMilliseconds(msTimeout)).Until(
                d => ((IJavaScriptExecutor)d).ExecuteScript("return document.readyState").Equals("complete")
             );
             return this;

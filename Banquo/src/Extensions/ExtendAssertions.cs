@@ -63,7 +63,7 @@ namespace Banquo.Extensions
         {
             try
             {
-                return WaitUntil((d, expected) => d.Title.Contains(expected), expectedTitleContent, msTimeout);
+                return WaitFor((d, expected) => d.Title.Contains(expected), expectedTitleContent, msTimeout);
             }
             catch (WebDriverTimeoutException e)
             {
@@ -76,7 +76,7 @@ namespace Banquo.Extensions
         {
             try
             {
-                return WaitUntil((d, expected) => d.Title == expected, expectedTitle, msTimeout);
+                return WaitFor((d, expected) => d.Title == expected, expectedTitle, msTimeout);
             }
             catch (WebDriverTimeoutException e)
             {
@@ -88,7 +88,7 @@ namespace Banquo.Extensions
         {
             try
             {
-                return WaitUntil((d, expected) => !d.Title.Contains(expected), dontExpectInTitle, msTimeout);
+                return WaitFor((d, expected) => !d.Title.Contains(expected), dontExpectInTitle, msTimeout);
             }
             catch (WebDriverTimeoutException e)
             {

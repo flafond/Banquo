@@ -118,8 +118,8 @@ namespace BanquoTest
                 //    .Type("NCR" + Keys.Tab);
                 //joe.Click("//input[@id='react-select-4-input']").WaitMSec(100)
                 //    .Type("Delhi" + Keys.Tab);
-                .AsUser.Type("//input[@id='react-select-3-input']", "NCR" + Keys.Tab)
-                .AsUser.Type("//input[@id='react-select-4-input']", "Delhi" + Keys.Tab);
+                .AsUser.FillsField("//input[@id='react-select-3-input']", "NCR" + Keys.Tab)
+                .AsUser.FillsField("//input[@id='react-select-4-input']", "Delhi" + Keys.Tab);
              user.SubmitForm("userForm")
                 .SeesInTitle("ToolsQA");
         }
