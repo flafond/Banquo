@@ -1,14 +1,13 @@
-﻿using System;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Internal;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Internal;
 
 namespace Banquo.Extensions
 {
-    public partial class DOMElement : IWebElement
+   public partial class DOMElement : IWebElement
     {
         private readonly IWebElement element;
 

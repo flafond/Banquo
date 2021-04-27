@@ -118,6 +118,12 @@ namespace Banquo.Extensions
             return AsUser;
         }
 
+        public DOMElement AppendsField(string toType)
+        {
+            SendKeys(toType);
+            return this;
+        }
+
         public DOMElement Type(string toType, int msDelay = 0)
         {
             if (msDelay <= 0)
