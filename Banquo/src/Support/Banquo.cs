@@ -48,6 +48,7 @@ namespace Banquo
         public static By ByRouter(string selector)
         {
             if (selector.StartsWith("//")) return By.XPath(selector);
+            if (selector.StartsWith(".//")) return By.XPath(selector);
             if (selector.StartsWith(".")) return By.ClassName(selector[1..]);
             if (selector.StartsWith("#")) return By.Id(selector[1..]);
             if (selector.StartsWith("<") && selector.EndsWith(">"))

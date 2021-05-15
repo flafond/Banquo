@@ -2,6 +2,7 @@
 using System.Linq;
 using OpenQA.Selenium;
 using System.Drawing;
+using static Banquo.Banquo;
 
 namespace Banquo.Extensions
 {
@@ -42,7 +43,7 @@ namespace Banquo.Extensions
         }
 
         public IReadOnlyList<string> GrabCssPropertyFromAll(string selector, string attributeName) =>
-            GrabCssPropertyFromAll(Banquo.ByRouter(selector), attributeName);
+            GrabCssPropertyFromAll(ByRouter(selector), attributeName);
 
         public string GrabCurrentUrl() => Url;
 
@@ -65,7 +66,7 @@ namespace Banquo.Extensions
         }
 
         public IReadOnlyList<string> GrabHTMLFromAll(string selector) =>
-            GrabHTMLFromAll(Banquo.ByRouter(selector));
+            GrabHTMLFromAll(ByRouter(selector));
 
         public string GrabTextFrom(By by, int msTimeout = Banquo.DefaultTimeout) =>
             WaitForElement(by, msTimeout).GrabText;
@@ -80,7 +81,7 @@ namespace Banquo.Extensions
         }
 
         public IReadOnlyList<string> GrabTextFromAll(string selector) =>
-            GrabHTMLFromAll(Banquo.ByRouter(selector));
+            GrabHTMLFromAll(ByRouter(selector));
 
         public string GrabTitle(int msTimeout = Banquo.DefaultTimeout) =>
             WaitPageReady(msTimeout).Title;
@@ -98,7 +99,7 @@ namespace Banquo.Extensions
         }
 
         public IReadOnlyList<string> GrabValueFromAll(string selector) =>
-            GrabValueFromAll(Banquo.ByRouter(selector));
+            GrabValueFromAll(ByRouter(selector));
 
     }
 }

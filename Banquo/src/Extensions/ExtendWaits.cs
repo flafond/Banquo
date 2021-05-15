@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
+using static Banquo.Banquo;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -14,16 +15,6 @@ namespace Banquo.Extensions
         {
             var match = Regex.Match(by.ToString(), "'(.*)'");
             return match.Groups[1].Value;
-        }
-
-        public static By ByRouter(string selector)
-        {
-            if (selector.StartsWith("//")) return By.XPath(selector);
-            if (selector.StartsWith(".")) return By.ClassName(selector.Substring(1));
-            if (selector.StartsWith("#")) return By.Id(selector.Substring(1));
-            if (selector.StartsWith("<") && selector.EndsWith(">"))
-                return By.TagName(selector.Substring(1, selector.Length - 2));
-            return By.CssSelector(selector);
         }
 
         // Generic method

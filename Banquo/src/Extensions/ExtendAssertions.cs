@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using static Banquo.Banquo;
 using Banquo.Exceptions;
 using FluentAssertions;
 using OpenQA.Selenium;
@@ -42,7 +43,7 @@ namespace Banquo.Extensions
         }
 
         public DOMElement SeesElement(string selector, int msTimeout = Banquo.DefaultTimeout) =>
-            SeesElement(Banquo.ByRouter(selector), msTimeout);
+            SeesElement(ByRouter(selector), msTimeout);
 
         public DOMElement SeesElementInDOM(By by, int msTimeout = Banquo.DefaultTimeout)
         {
@@ -57,7 +58,7 @@ namespace Banquo.Extensions
         }
 
         public DOMElement SeesElementInDOM(string selector, int msTimeout = Banquo.DefaultTimeout) =>
-            SeesElementInDOM(Banquo.ByRouter(selector), msTimeout);
+            SeesElementInDOM(ByRouter(selector), msTimeout);
 
         public User SeesInTitle(string expectedTitleContent, int msTimeout = Banquo.DefaultTimeout)
         {
@@ -111,7 +112,7 @@ namespace Banquo.Extensions
         }
 
         public IReadOnlyList<DOMElement> SeesNumberofElements(string selector, int expectedCount, int msTimeout = Banquo.DefaultTimeout) =>
-            SeesNumberofElements(Banquo.ByRouter(selector), expectedCount, msTimeout);
+            SeesNumberofElements(ByRouter(selector), expectedCount, msTimeout);
 
         public DOMElement SeesInField(By by, string fieldValue, int msTimeout = Banquo.DefaultTimeout)
         {
